@@ -1,0 +1,50 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ACCEPT_FAILED	ChatServer.hpp	/^    ACCEPT_FAILED$/;"	e	enum:error_no
+BIND_FAILED	ChatServer.hpp	/^    BIND_FAILED,$/;"	e	enum:error_no
+CREATE_SOCK_FAILED	ChatServer.hpp	/^    CREATE_SOCK_FAILED = 0,$/;"	e	enum:error_no
+ChatServer	ChatServer.hpp	/^    ChatServer()$/;"	f	class:ChatServer
+ChatServer	ChatServer.hpp	/^class ChatServer{$/;"	c
+DealLogin	ChatServer.hpp	/^    int DealLogin()$/;"	f	class:ChatServer
+DealRegister	ChatServer.hpp	/^    int DealRegister(int new_sock)$/;"	f	class:ChatServer
+GetSockFd	ChatServer.hpp	/^        int GetSockFd()$/;"	f	class:TcpConnect
+InitSvr	ChatServer.hpp	/^    int InitSvr(uint16_t tcp_port = TCP_PORT) \/\/创建tcp_socet$/;"	f	class:ChatServer
+LISTEN_FAILED	ChatServer.hpp	/^    LISTEN_FAILED,$/;"	e	enum:error_no
+LOGIN_FAILED	ConnectInfo.hpp	/^    LOGIN_FAILED,$/;"	e	enum:Status
+LOGIN_RESQ	ConnectInfo.hpp	/^    LOGIN_RESQ,$/;"	e	enum:RESQTYPE
+LOGIN_SUCCESS	ConnectInfo.hpp	/^    LOGIN_SUCCESS$/;"	e	enum:Status
+LogInfo	ConnectInfo.hpp	/^    LogInfo()$/;"	f	struct:LogInfo
+LogInfo	ConnectInfo.hpp	/^struct LogInfo$/;"	s
+LoginRegisterStart	ChatServer.hpp	/^    static void* LoginRegisterStart(void* arg) \/\/ 处理登录注册请求$/;"	f	class:ChatServer
+REGISTER_FAILED	ConnectInfo.hpp	/^    REGISTER_FAILED = 0,$/;"	e	enum:Status
+REGISTER_RESQ	ConnectInfo.hpp	/^    REGISTER_RESQ = 0,$/;"	e	enum:RESQTYPE
+REGISTER_SUCCESS	ConnectInfo.hpp	/^    REGISTER_SUCCESS,$/;"	e	enum:Status
+RESQTYPE	ConnectInfo.hpp	/^enum RESQTYPE$/;"	g
+RegisterInfo	ConnectInfo.hpp	/^    RegisterInfo()$/;"	f	struct:RegisterInfo
+RegisterInfo	ConnectInfo.hpp	/^struct RegisterInfo$/;"	s
+ReplyInfo	ConnectInfo.hpp	/^struct ReplyInfo$/;"	s
+SetSockfd	ChatServer.hpp	/^        void SetSockfd(int fd)$/;"	f	class:TcpConnect
+Start	ChatServer.hpp	/^    int Start()$/;"	f	class:ChatServer
+Status	ConnectInfo.hpp	/^enum Status$/;"	g
+TCP_PORT	ChatServer.hpp	13;"	d
+TcpConnect	ChatServer.hpp	/^        TcpConnect()$/;"	f	class:TcpConnect
+TcpConnect	ChatServer.hpp	/^class TcpConnect{$/;"	c
+error_no	ChatServer.hpp	/^enum error_no$/;"	g
+id_	ConnectInfo.hpp	/^    uint32_t id_;$/;"	m	struct:LogInfo
+id_	ConnectInfo.hpp	/^    uint32_t id_;$/;"	m	struct:ReplyInfo
+main	ChatServer.cpp	/^int main()$/;"	f
+new_sock_	ChatServer.hpp	/^        int new_sock_;$/;"	m	class:TcpConnect
+nick_name_	ConnectInfo.hpp	/^    char nick_name_[20];$/;"	m	struct:RegisterInfo
+passwd_	ConnectInfo.hpp	/^    char passwd_[20];$/;"	m	struct:LogInfo
+passwd_	ConnectInfo.hpp	/^    char passwd_[20];$/;"	m	struct:RegisterInfo
+resp_status	ConnectInfo.hpp	/^    int resp_status;\/\/注册成功还是登录成功$/;"	m	struct:ReplyInfo
+school_	ConnectInfo.hpp	/^    char school_[20];$/;"	m	struct:RegisterInfo
+tcp_port	ChatServer.hpp	/^        uint16_t tcp_port;$/;"	m	class:ChatServer
+tcp_sock_	ChatServer.hpp	/^        int tcp_sock_;$/;"	m	class:ChatServer
+udp_sock_	ChatServer.hpp	/^        int udp_sock_;$/;"	m	class:ChatServer
+~ChatServer	ChatServer.hpp	/^    ~ChatServer()$/;"	f	class:ChatServer
+~TcpConnect	ChatServer.hpp	/^        ~TcpConnect()$/;"	f	class:TcpConnect
