@@ -10,6 +10,7 @@
 #include <sys/types.h>
 #include "ConnectInfo.hpp"
 #include "tools.hpp"
+#include "UserManager.hpp"
 
 #define TCP_PORT 12345
 
@@ -26,6 +27,7 @@ class TcpConnect{
         TcpConnect()
         {
             new_sock_ = -1;
+            server_ = nullptr;
         }
         ~TcpConnect()
         {}
@@ -33,12 +35,22 @@ class TcpConnect{
         {
             new_sock_ = fd;
         }
+        void SetServer(void* server)
+        {
+            server_ = server;
+        }
         int GetSockFd()
         {
             return new_sock_;
         }
+
+        void* GetServer()
+        {
+            return server_;
+        }
     private:
         int new_sock_;
+        void* server_; //保存ChatServer这个类的this指针,确保在tcp的线程入口函数中可以获取到用户管理模块的实例化指针
 };
 class ChatServer{
     public:
@@ -47,6 +59,7 @@ class ChatServer{
         //登录注册
         tcp_sock_ = -1; //初始化-1
         tcp_port = TCP_PORT;
+        this->user_manager_ = nullptr;
     }
     ~ChatServer()
     {
@@ -75,6 +88,11 @@ class ChatServer{
        }
        string str = "listen port is";
        Log(INFO,__FILE__,__LINE__, str) << " " << tcp_port << std::endl;
+      user_manager_ = new Usermanager();
+      if(user_manager_ == nullptr)
+      {
+          return -1;
+      }
        
        return 0;
     }
@@ -94,6 +112,7 @@ class ChatServer{
         pthread_t tid;
        TcpConnect *tc = new TcpConnect();
        tc->SetSockfd(new_sock);
+       tc->SetServer((void*)this);
         int ret = pthread_create(&tid,NULL,LoginRegisterStart,NULL);
         if(ret < 0)
         {
@@ -109,9 +128,11 @@ class ChatServer{
         
         pthread_detach(pthread_self());
         TcpConnect* tc = (TcpConnect*)arg; 
+        ChatServer* cs = (ChatServer*)tc->GetServer();
         char ques_type = -1;
         recv(tc->GetSockFd(),&ques_type,1,0);
         ssize_t recv_size = recv(tc->GetSockFd(),&ques_type,1,0);
+    
         if(recv_size < 0) 
         {
             close(tc->GetSockFd());
@@ -128,12 +149,11 @@ class ChatServer{
                 case REGISTER_RESQ:
                     {
                         //处理注册请求
-                        
+                        cs->DealRegister(tc->GetSockFd(),cs);
                         break;
                     }
                 case LOGIN_RESQ:
                     {
-
                         break;
                     }
             }
@@ -141,7 +161,7 @@ class ChatServer{
         return nullptr;
     }
     //成功失败都要给客户端返回一个响应
-    int DealRegister(int new_sock)
+    int DealRegister(int new_sock,ChatServer* cs)
     {
         struct RegisterInfo s;
         ssize_t recv_size = recv(new_sock,&s,sizeof(s),0);
@@ -155,6 +175,10 @@ class ChatServer{
             return -2;
         }
         //正常接收到 
+        string temp = s.nick_name_;
+        string temp1 = s.passwd_;
+        string temp2 = s.school_;
+        cs->user_manager_->DealRegister(temp,temp1,temp2);
     }
     int DealLogin()
     {
@@ -166,5 +190,6 @@ class ChatServer{
     private:
         int tcp_sock_;
         int udp_sock_;
-        uint16_t tcp_port;
+        uint16_t tcp_port; 
+        Usermanager* user_manager_;
 };

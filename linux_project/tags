@@ -9,16 +9,25 @@ BIND_FAILED	ChatServer.hpp	/^    BIND_FAILED,$/;"	e	enum:error_no
 CREATE_SOCK_FAILED	ChatServer.hpp	/^    CREATE_SOCK_FAILED = 0,$/;"	e	enum:error_no
 ChatServer	ChatServer.hpp	/^    ChatServer()$/;"	f	class:ChatServer
 ChatServer	ChatServer.hpp	/^class ChatServer{$/;"	c
+DEBUG	tools.hpp	/^    DEBUG,$/;"	e	enum:LogLevel
 DealLogin	ChatServer.hpp	/^    int DealLogin()$/;"	f	class:ChatServer
-DealRegister	ChatServer.hpp	/^    int DealRegister(int new_sock)$/;"	f	class:ChatServer
+DealRegister	ChatServer.hpp	/^    int DealRegister(int new_sock,ChatServer* cs)$/;"	f	class:ChatServer
+DealRegister	UserManager.hpp	/^        int DealRegister(string &nickname , string &school , string& passwd)  $/;"	f	class:Usermanager
+ERROR	tools.hpp	/^    ERROR,$/;"	e	enum:LogLevel
+FATAL	tools.hpp	/^    FATAL,$/;"	e	enum:LogLevel
+GetServer	ChatServer.hpp	/^        void* GetServer()$/;"	f	class:TcpConnect
 GetSockFd	ChatServer.hpp	/^        int GetSockFd()$/;"	f	class:TcpConnect
-InitSvr	ChatServer.hpp	/^    int InitSvr(uint16_t tcp_port = TCP_PORT) \/\/创建tcp_socet$/;"	f	class:ChatServer
+GetTimeStamp	tools.hpp	/^        static void GetTimeStamp(string *timestamp)$/;"	f	class:TimeStamp
+INFO	tools.hpp	/^    INFO = 0,$/;"	e	enum:LogLevel
+InitSvr	ChatServer.hpp	/^    int InitSvr(uint16_t tcp_port = TCP_PORT) \/\/创建tcp_socket$/;"	f	class:ChatServer
 LISTEN_FAILED	ChatServer.hpp	/^    LISTEN_FAILED,$/;"	e	enum:error_no
 LOGIN_FAILED	ConnectInfo.hpp	/^    LOGIN_FAILED,$/;"	e	enum:Status
 LOGIN_RESQ	ConnectInfo.hpp	/^    LOGIN_RESQ,$/;"	e	enum:RESQTYPE
 LOGIN_SUCCESS	ConnectInfo.hpp	/^    LOGIN_SUCCESS$/;"	e	enum:Status
+Log	tools.hpp	/^std::ostream& Log(LogLevel Loglevel,string file,int line,string& msg)$/;"	f
 LogInfo	ConnectInfo.hpp	/^    LogInfo()$/;"	f	struct:LogInfo
 LogInfo	ConnectInfo.hpp	/^struct LogInfo$/;"	s
+LogLevel	tools.hpp	/^enum LogLevel$/;"	g
 LoginRegisterStart	ChatServer.hpp	/^    static void* LoginRegisterStart(void* arg) \/\/ 处理登录注册请求$/;"	f	class:ChatServer
 REGISTER_FAILED	ConnectInfo.hpp	/^    REGISTER_FAILED = 0,$/;"	e	enum:Status
 REGISTER_RESQ	ConnectInfo.hpp	/^    REGISTER_RESQ = 0,$/;"	e	enum:RESQTYPE
@@ -27,24 +36,43 @@ RESQTYPE	ConnectInfo.hpp	/^enum RESQTYPE$/;"	g
 RegisterInfo	ConnectInfo.hpp	/^    RegisterInfo()$/;"	f	struct:RegisterInfo
 RegisterInfo	ConnectInfo.hpp	/^struct RegisterInfo$/;"	s
 ReplyInfo	ConnectInfo.hpp	/^struct ReplyInfo$/;"	s
+SetServer	ChatServer.hpp	/^        void SetServer(void* server)$/;"	f	class:TcpConnect
 SetSockfd	ChatServer.hpp	/^        void SetSockfd(int fd)$/;"	f	class:TcpConnect
 Start	ChatServer.hpp	/^    int Start()$/;"	f	class:ChatServer
 Status	ConnectInfo.hpp	/^enum Status$/;"	g
-TCP_PORT	ChatServer.hpp	13;"	d
+TCP_PORT	ChatServer.hpp	15;"	d
 TcpConnect	ChatServer.hpp	/^        TcpConnect()$/;"	f	class:TcpConnect
 TcpConnect	ChatServer.hpp	/^class TcpConnect{$/;"	c
+TimeStamp	tools.hpp	/^class TimeStamp$/;"	c
+UserInfo	UserManager.hpp	/^    UserInfo(std::string &nickname ,std::string &school,string& passwd, uint32_t user_id) : nickname_(nickname),school_(school),passwd_(passwd),user_id_(user_id)$/;"	f	class:UserInfo
+UserInfo	UserManager.hpp	/^class UserInfo$/;"	c
+Usermanager	UserManager.hpp	/^        Usermanager()$/;"	f	class:Usermanager
+Usermanager	UserManager.hpp	/^class Usermanager   \/\/ string id      UserInfo  保存用户信息  $/;"	c
+WARNNING	tools.hpp	/^    WARNNING,$/;"	e	enum:LogLevel
 error_no	ChatServer.hpp	/^enum error_no$/;"	g
 id_	ConnectInfo.hpp	/^    uint32_t id_;$/;"	m	struct:LogInfo
 id_	ConnectInfo.hpp	/^    uint32_t id_;$/;"	m	struct:ReplyInfo
+levelInfo	tools.hpp	/^const char* levelInfo[] = $/;"	v
 main	ChatServer.cpp	/^int main()$/;"	f
+map_lock_	UserManager.hpp	/^        pthread_mutex_t map_lock_;$/;"	m	class:Usermanager
 new_sock_	ChatServer.hpp	/^        int new_sock_;$/;"	m	class:TcpConnect
 nick_name_	ConnectInfo.hpp	/^    char nick_name_[20];$/;"	m	struct:RegisterInfo
+nickname_	UserManager.hpp	/^        std::string nickname_;$/;"	m	class:UserInfo
 passwd_	ConnectInfo.hpp	/^    char passwd_[20];$/;"	m	struct:LogInfo
 passwd_	ConnectInfo.hpp	/^    char passwd_[20];$/;"	m	struct:RegisterInfo
+passwd_	UserManager.hpp	/^        std::string passwd_;$/;"	m	class:UserInfo
+prepare_id_	UserManager.hpp	/^        uint32_t prepare_id_; \/\/预分配用户id $/;"	m	class:Usermanager
 resp_status	ConnectInfo.hpp	/^    int resp_status;\/\/注册成功还是登录成功$/;"	m	struct:ReplyInfo
 school_	ConnectInfo.hpp	/^    char school_[20];$/;"	m	struct:RegisterInfo
+school_	UserManager.hpp	/^        std::string school_;$/;"	m	class:UserInfo
+server_	ChatServer.hpp	/^        void* server_; \/\/保存ChatServer这个类的this指针,确保在tcp的线程入口函数中可以获取到用户管理模块的实例化指针$/;"	m	class:TcpConnect
 tcp_port	ChatServer.hpp	/^        uint16_t tcp_port;$/;"	m	class:ChatServer
 tcp_sock_	ChatServer.hpp	/^        int tcp_sock_;$/;"	m	class:ChatServer
 udp_sock_	ChatServer.hpp	/^        int udp_sock_;$/;"	m	class:ChatServer
+user_id_	UserManager.hpp	/^        uint32_t user_id_;  \/\/用户id$/;"	m	class:UserInfo
+user_manager_	ChatServer.hpp	/^        Usermanager* user_manager_;$/;"	m	class:ChatServer
+user_map_	UserManager.hpp	/^        unordered_map<uint32_t , UserInfo> user_map_;$/;"	m	class:Usermanager
 ~ChatServer	ChatServer.hpp	/^    ~ChatServer()$/;"	f	class:ChatServer
 ~TcpConnect	ChatServer.hpp	/^        ~TcpConnect()$/;"	f	class:TcpConnect
+~UserInfo	UserManager.hpp	/^    ~UserInfo()$/;"	f	class:UserInfo
+~Usermanager	UserManager.hpp	/^        ~Usermanager()$/;"	f	class:Usermanager
